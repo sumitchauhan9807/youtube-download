@@ -18,19 +18,27 @@ app.use(bodyParser.json());
 app.use('/user',userRouter);
 
 app.get('/mongo',(req,res,next)=>{
-    
-    Artist.find({}).exec((err,result)=>{
-        res.send(result);
+   
+    var user = new User({
+        name : "Sumit",
+        email:"123@gmail.com"
     })
-    // var artist = new Artist({
-    //     name:'general',
-    //     user:'5e7f6a307cf4011ac821649c'
+
+    user.save().then((result)=>{
+        res.send(result)
+    })
+    // Artist.find({}).exec((err,result)=>{
+    //     res.send(result);
     // })
-    // artist.save().then((result)=>{
-    //     res.send(result)
-    // }).catch((err)=>{
-    //     res.send(err)
-    // })
+    // // var artist = new Artist({
+    // //     name:'general',
+    // //     user:'5e7f6a307cf4011ac821649c'
+    // // })
+    // // artist.save().then((result)=>{
+    // //     res.send(result)
+    // // }).catch((err)=>{
+    // //     res.send(err)
+    // // })
 })
     
 var socketFunctions = require('./socket')
