@@ -43,6 +43,6 @@ var socketFunctions = require('./socket')
             console.log('user connected')
             socketFunctions.initSocketFunctions(socket)
         });
-        server.listen(3000); 
+        server.listen(5000); 
         console.log('listing to app')     
     })
