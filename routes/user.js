@@ -1,10 +1,53 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const fs = require('fs');
 const musicController = require('../controllers/musicController');
 const userMiddleware = require('../middleware/user');
 
  
+
+router.get('/delete/:type',(req,res,next)=>{
+    var type = req.params.type;
+    console.log(type);
+    if(type =='video'){
+        var  directory = path.join(__dirname,"../","/media/video");
+    }else if(type == "audio"){
+        var  directory = path.join(__dirname,"../","/media/audio");
+    }else{
+        return res.send({
+            message:'invalid request'
+        })
+    }
+    
+    console.log(directory);
+    //return
+    fs.readdir(directory, (err, files) => {
+        if(!files.length){
+            return res.send({
+                message:'no files to delete'
+            })
+        }
+        console.log(files.length);
+        if (err) throw err;
+        var fileCount=0;
+        var filesNameArray = [];
+        for (const file of files) {
+            fs.unlink(path.join(directory, file), err => {
+                 if (err) throw err;
+                 filesNameArray.push(file)
+                 fileCount++;
+                 console.log('file deleted')
+                 if(fileCount == files.length){
+                     res.send({
+                         files:filesNameArray,
+                         length:filesNameArray.length
+                     })
+                 }
+            });
+        }
+    });
+})
 router.get('/',userMiddleware.userData,(req,res,next)=>{
     res.sendFile(path.join(__dirname,"../",'/index.html'));
 })

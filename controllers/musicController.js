@@ -144,17 +144,17 @@ exports.downloadSong = (userData,videoId,artistId)=>{
                     Artist.updateOne({_id:artistId},{
                         $push:{tracks:newTrack._id}
                     }).exec(()=>{
-                        console.log('user track save successfully!!! and ARTIST updaed tppp')
-                        global.io.to(userData._id).emit('Track_Downloaded',{
-                            artist_id:artistId,
-                            trackData:newTrack,
-                            videoId:videoId,
-                            url:title
-                        })
+                        console.log('user track save successfully!!! ')
                     })
                     
                 })
                 convertToMp3(title).then(()=>{
+                    global.io.to(userData._id).emit('Track_Downloaded',{
+                        artist_id:artistId,
+                        trackData:newTrack,
+                        videoId:videoId,
+                        url:title
+                    })
                     console.log('FILE DOWNLODED AND CONVERTED TO MP3 TOOOO') 
                 })
             });
