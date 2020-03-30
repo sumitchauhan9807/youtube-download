@@ -282,10 +282,10 @@ function populateSearchData(searchResults){
       playBtnHtml += 
       `
       <div class="row mleft10">
-        <div class="col-md-6">
+        <div class="col-md-6" mtop5>
             <a target="_blank" href="http://localhost:3000/media/audio/${searchRes.url}.mp3" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Play audio</a>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 mtop5">
             <a target="_blank" href="http://localhost:3000/media/video/${searchRes.url}.mp4" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Play video</a>
           </div>
         </div>
@@ -437,6 +437,9 @@ const socket = io(serverUrl);
 
 .input-field:focus {
   border: 2px solid dodgerblue;
+}
+.mtop5{
+  margin-top:5px;
 }
 
 /* Set a style for the submit button */
