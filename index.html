@@ -163,7 +163,7 @@
 <script>
 var artistsDataArray = [];
 var currentTasks = [];
-
+var serverUrl = "http://52.66.243.150:5000/"
 
 $(document).on("click",".zipMySongs",function(){
   $.ajax({
@@ -277,7 +277,8 @@ function populateSearchData(searchResults){
   var popHtml='';
   searchResults.forEach((searchRes)=>{
     var playBtnHtml=''
-    if(searchRes.foundData){
+    //if(searchRes.foundData){
+      if(false){
       playBtnHtml += 
       `
       <div class="row mleft10">
@@ -324,9 +325,9 @@ function populateSearchData(searchResults){
 
 function ConnectToSocket(){
    
-const socket = io('http://localhost:3000/');
+const socket = io(serverUrl);
   socket.on('connect', function(){
-        socket.emit('init','5e7f6a307cf4011ac821649c')
+        socket.emit('init','5e821c86d99be04a67062704')
   });
 
   socket.on('test',function(data){
@@ -350,10 +351,10 @@ const socket = io('http://localhost:3000/');
     
     var newHtml = `<div class="row mleft10">
         <div class="col-md-6">
-            <a target="_blank" href="http://localhost:3000/media/audio/${data.url}.mp3" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play audio</a>
+            <a target="_blank" href="${serverUrl}media/audio/${data.url}.mp3" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play audio</a>
           </div>
           <div class="col-md-6">
-            <a target="_blank" href="http://localhost:3000/media/video/${data.url}.mp4" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play video</a>
+            <a target="_blank" href="${serverUrl}media/video/${data.url}.mp4" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play video</a>
           </div>
         </div>`
     $(document).find(progressBarClass).parents('.card').find('.videoStatus').html(newHtml)
