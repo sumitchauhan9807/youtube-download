@@ -114,6 +114,7 @@ exports.downloadSong = (userData,videoId,artistId)=>{
         .replace(/\//g, ",")
         .replace(/[\[\]']+/g, '')
         .replace(/[\[\]']+/g, '')
+        .substring(0, 7)
         console.log(title);
         //return res.send(title);
         //title = title+'.mp4';
