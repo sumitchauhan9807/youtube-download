@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Youtube Dwnld</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+</head>
+<body>
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color" style="background: cadetblue;">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="#">Navbar</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link zipMySongs" href="#">Zip songs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link getMySongs" href="#">Get my songs</a>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+
+    </ul>
+    <!-- Links -->
+
+    <form class="form-inline">
+      <div class="md-form my-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      </div>
+    </form>
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<br><br>
+<!--/.Navbar-->
+<div class="container">
+    <div class="input-container">
+      <i class="fa fa-user icon"></i>
+      <input class="input-field searchSongInputText" type="text" placeholder="Search" name="usrnm">
+    </div>
+   <button type="button" class="btn searchSong">Search</button>
+   <br><br>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Artists</h2>
+      <div class="allArtists">
+          <ul class="list-group artistList">
+          </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <h2>Songs</h2>
+      <div class="card minHei">
+        <ul class="thisArtSongsList">
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="searchResults">
+    <div class="row searchResultsInner">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
+            <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-default">dwnld</a>
+            </div>
+            <div class="col-md-6 loader hide">
+              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
+            </div>
+          </div>
+          </div> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
+            <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-default">dwnld</a>
+            </div>
+            <div class="col-md-6 loader hide">
+              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
+            </div>
+          </div>
+          </div> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
+            <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-default">dwnld</a>
+            </div>
+            <div class="col-md-6 loader hide">
+              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
+            </div>
+          </div>
+          </div> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
+            <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-default">dwnld</a>
+            </div>
+            <div class="col-md-6 loader hide">
+              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
+            </div>
+          </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+var artistsDataArray = [];
+var currentTasks = [];
+
+
+$(document).on("click",".zipMySongs",function(){
+  $.ajax({
+    url:'user/makezip',
+    method:'GET',
+    success:function(response){
+      alert('making zip')
+    }
+  })
+})
+$(document).on("click",".getMySongs",function(){
+  
+})
+$(document).on('click','.searchSong',function(){
+  var searchedText = $('.searchSongInputText').val();
+  console.log(searchedText)
+  getSearchResults(searchedText).then((searchResults)=>{
+      populateSearchData(searchResults);
+    })
+})
+
+$(document).on('click','.artistListLink',function(){
+  var thisArtistId = $(this).attr('artist_id');
+  showArtistSongs(thisArtistId)
+})
+
+$(document).on('click','.downloadThisVideo',function(){
+  var thisVideoId = $(this).attr('video_id');
+  var loader = $(this).parents('.card').find('.loader');
+  currentTasks.push({
+    videoId:thisVideoId,
+    loaderRef:loader
+  })
+  console.log(loader)
+  loader.removeClass('hide')
+  requestDownloadData(thisVideoId)
+})
+$(document).ready(function(){
+
+  ConnectToSocket()
+    getSearchResults('porcupine tree she move on').then((searchResults)=>{
+      populateSearchData(searchResults);
+    })
+
+
+
+    getArtistData().then((result)=>{
+      console.log(result)
+      var html = ''
+      result.forEach((artist)=>{
+        html+='<li artist_id="'+artist._id+'" class="list-group-item artistListLink">'+artist.name+'</li>'
+      })
+      $('.artistList').html(html)
+      console.log(html)
+    })
+})
+
+
+function showArtistSongs(thisArtistId){
+  var thisArtistData = artistsDataArray.find((thisArtist)=>{
+      return thisArtist._id == thisArtistId
+  })
+    let songsHTML='';
+    thisArtistData.tracks.forEach((thisTrack)=>{
+      songsHTML += `<li>${thisTrack.name}</li>`
+    })
+    $('.thisArtSongsList').html(songsHTML)
+}
+function requestDownloadData(thisVideoId){
+    return new Promise((resolve,reject)=>{
+      $.ajax({
+        url:'/user/music',
+        type:'POST',
+        data:{
+          videoId:thisVideoId,
+          artistId:'5e7f750f9697151e48dc7be6'
+        },
+        success:function(response){
+          resolve(response)
+        }
+      })
+    })
+}
+
+
+function getArtistData(){
+  return new Promise((resolve,reject)=>{
+    $.ajax({
+      url:'/user/artists',
+      type:'GET',
+      success:function(result){
+        artistsDataArray=result
+        resolve(result)
+      }
+    })
+  })
+}
+
+function getSearchResults(searchText){
+  return new Promise((resolve,reject)=>{
+    $.ajax({
+      url:'/user/search/'+searchText,
+      type:'GET',
+      success:function(result){
+        resolve(result)
+      }
+    })
+  })
+}
+function populateSearchData(searchResults){
+  var popHtml='';
+  searchResults.forEach((searchRes)=>{
+    var playBtnHtml=''
+    if(searchRes.foundData){
+      playBtnHtml += 
+      `
+      <div class="row mleft10">
+        <div class="col-md-6">
+            <a target="_blank" href="http://localhost:3000/media/audio/${searchRes.url}.mp3" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Play audio</a>
+          </div>
+          <div class="col-md-6">
+            <a target="_blank" href="http://localhost:3000/media/video/${searchRes.url}.mp4" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Play video</a>
+          </div>
+        </div>
+        `
+    }else{
+      playBtnHtml +=`
+      <div class="col-md-6">
+              <a video_id="${searchRes.id.videoId}" class="btn btn-default downloadThisVideo">dwnld</a>
+      </div>`
+    }
+    popHtml+= `
+    <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">${searchRes.snippet.title.slice(0,40)}</div>
+          <div class="card-body">
+            <img class="videoThumb" src="${searchRes.snippet.thumbnails.medium.url}">
+            <div class="row">
+              <div class="videoStatus">
+                ${playBtnHtml}
+            </div>
+            <div class="col-md-6 loader hide">
+              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
+            </div>
+          </div>
+          <div class="progress  hide progress_${searchRes.id.videoId}">
+                <div class="progress-bar-animated"></div>
+          </div>
+          </div> 
+        </div>
+      </div>
+    `;
+  })
+  $('.searchResultsInner').html(popHtml)
+  console.log(searchResults,'asdasdas')
+}
+ 
+
+function ConnectToSocket(){
+   
+const socket = io('http://localhost:3000/');
+  socket.on('connect', function(){
+        socket.emit('init','5e7f6a307cf4011ac821649c')
+  });
+
+  socket.on('test',function(data){
+    console.log(data)
+  })
+  socket.on('Zip_Complete',function(data){
+    window.location.href="user/getmysongs"  
+  })
+
+  socket.on('Track_Downloaded',function(data){
+    console.log('track downloaded');
+    console.log(data);
+    console.log(currentTasks,'before');
+    var completedTask =  currentTasks.find((thisTask)=>{
+      return thisTask.videoId == data.videoId
+    })
+    //workinghere
+    completedTask.loaderRef.addClass('hide');
+    var progressBarClass = '.progress_'+data.videoId
+    $(document).find(progressBarClass).addClass('hide');
+    
+    var newHtml = `<div class="row mleft10">
+        <div class="col-md-6">
+            <a target="_blank" href="http://localhost:3000/media/audio/${data.url}.mp3" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play audio</a>
+          </div>
+          <div class="col-md-6">
+            <a target="_blank" href="http://localhost:3000/media/video/${data.url}.mp4" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play video</a>
+          </div>
+        </div>`
+    $(document).find(progressBarClass).parents('.card').find('.videoStatus').html(newHtml)
+    currentTasks = currentTasks.filter((thisTask)=>{
+        return thisTask.videoId != data.videoId
+    })
+    console.log(currentTasks,'after');
+    alert(data.url+' completed downloading 1!!!!')
+    //videoId:thisVideoId,
+    //loaderRef:loader
+  })
+
+  socket.on("Dowload_Percent",function(data){
+    console.log(data);
+    var progressBarClass = '.progress_'+data.videoId
+    $(document).find(progressBarClass).removeClass('hide');
+    var theProgressBar = $(document).find(progressBarClass).find('.progress-bar-animated')
+    theProgressBar.text(data.percent)
+  })
+}
+</script>
+</body>
+
+<style>
+  .progress{
+    margin-top: 8px;
+  }
+  .card-header{
+    font-size: 12px;
+  }
+  .hide{
+    display: none;
+  }
+  .loader img{
+    height: 22px;
+    position: absolute
+  }
+  .card{
+    margin-top:10px;
+  }
+  .videoThumb{
+    height: 152px;
+    width: 216px;
+    padding-bottom: 10px;
+  }
+  .card a{
+    height: 23px;
+    padding: 0px;
+    width: 80px;
+    margin: 0px;
+    float: left;
+  }
+  .minHei{
+    min-height: 30px;
+    padding:25px;
+  }
+  body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: dodgerblue;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  font-family: cursive;
+    font-size: small;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+.mleft10{
+  margin-left:10px;
+}
+</style>
+</html>
