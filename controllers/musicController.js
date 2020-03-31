@@ -107,14 +107,12 @@ exports.downloadSong = (userData,videoId,artistId)=>{
     
 // return
     getVideoData(videoId).then((videoData)=>{
+        String.prototype.cleanup = function() {
+            return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+         }
         var title = videoData.title
         //console.log(title);
-        title = "sumitRoxxx_"+title.replace(/\s/g,'_')
-        .replace(/\|/g, ",")
-        .replace(/\//g, ",")
-        .replace(/[\[\]']+/g, '')
-        .replace(/[\[\]']+/g, '')
-        .substring(0, 18)
+        title = title.cleanup();
         console.log(title);
         //return res.send(title);
         //title = title+'.mp4';
