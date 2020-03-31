@@ -151,6 +151,8 @@ exports.downloadSong = (userData,videoId,artistId)=>{
                                 url:title
                             })
                             console.log('FILE DOWNLODED AND CONVERTED TO MP3 TOOOO') 
+                        }).catch(()=>{
+                            global.io.to(userData._id).emit('Error',true);
                         })
                     })
                     
@@ -204,6 +206,7 @@ function convertToMp3(title){
         
     }catch(e){
         console.log(e)
+       return reject();
     }
  
 // console.log('asdasdasdasdasdas-0098908908')
@@ -216,15 +219,18 @@ function convertToMp3(title){
             if(error){
                 console.log('there was an error sumit')
                 console.log(error)
+                return reject();
             }
                 
         });
         }, function (err) {
             console.log('Error is this sumit: ' + err);
+           return reject();
         });
 
     }).catch((err)=>{
         console.log(err);
+        return reject();
     });
 }
 

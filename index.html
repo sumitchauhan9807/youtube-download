@@ -336,7 +336,9 @@ const socket = io(serverUrl);
   socket.on('Zip_Complete',function(data){
     window.location.href="user/getmysongs"  
   })
-
+  socket.on("Error",function(data){
+    alert('Please try again>>')
+  })
   socket.on('Track_Downloaded',function(data){
     console.log('track downloaded');
     console.log(data);
