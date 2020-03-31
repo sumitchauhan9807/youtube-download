@@ -108,7 +108,7 @@ exports.downloadSong = (userData,videoId,artistId)=>{
 // return
     getVideoData(videoId).then((videoData)=>{
         String.prototype.cleanup = function() {
-            return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+            return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "_");
          }
         var title = videoData.title
         //console.log(title);
