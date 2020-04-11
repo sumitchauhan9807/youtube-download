@@ -17,6 +17,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/user',userRouter);
 
+
+app.get('/vinit',(req,res,nxt)=>{
+    res.send('hi i am vinit')
+})
 app.get('/mongo',(req,res,next)=>{
    
     var user = new User({
@@ -31,8 +35,8 @@ app.get('/mongo',(req,res,next)=>{
     
 var socketFunctions = require('./socket')
 
-  var mongoConnect = mongoose.connect('mongodb://localhost:27017/musicWorld', {useNewUrlParser: true});
-     mongoConnect.then(()=>{
+ // var mongoConnect = mongoose.connect('mongodb://localhost:27017/musicWorld', {useNewUrlParser: true});
+   //  mongoConnect.then(()=>{
         const server = require('http').createServer(app);
         global.io = require('socket.io')(server);
         global.io.on('connection', (socket) => {
@@ -41,5 +45,5 @@ var socketFunctions = require('./socket')
         });
         server.listen(5000); 
         console.log('listing to app')     
-    })
+   // })
     
