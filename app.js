@@ -27,24 +27,12 @@ app.get('/mongo',(req,res,next)=>{
     user.save().then((result)=>{
         res.send(result)
     })
-    // Artist.find({}).exec((err,result)=>{
-    //     res.send(result);
-    // })
-    // // var artist = new Artist({
-    // //     name:'general',
-    // //     user:'5e7f6a307cf4011ac821649c'
-    // // })
-    // // artist.save().then((result)=>{
-    // //     res.send(result)
-    // // }).catch((err)=>{
-    // //     res.send(err)
-    // // })
 })
     
 var socketFunctions = require('./socket')
 
   var mongoConnect = mongoose.connect('mongodb://localhost:27017/musicWorld', {useNewUrlParser: true});
-    mongoConnect.then(()=>{
+     mongoConnect.then(()=>{
         const server = require('http').createServer(app);
         global.io = require('socket.io')(server);
         global.io.on('connection', (socket) => {
