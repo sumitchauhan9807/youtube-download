@@ -39,6 +39,7 @@ exports.searchResults = (searchText,userData)=>{
             }
 
             var searchVideoData  = response.data.items;
+            return resolve(searchVideoData);
             var searchVideoIds = searchVideoData.map((searchVideo)=>{
                 return searchVideo.id.videoId
             })
@@ -51,6 +52,7 @@ exports.searchResults = (searchText,userData)=>{
                 let foundVideosIdArray = result.map((foundVideo)=>{
                     return foundVideo.videoId
                 })
+            //    var foundVideosIdArray = [];
                 console.log(foundVideosIdArray)
                 var returnData = searchVideoData.map((thisSearchedVideo)=>{
                     if(foundVideosIdArray.includes(thisSearchedVideo.id.videoId)){
@@ -131,32 +133,33 @@ exports.downloadSong = (userData,videoId,artistId)=>{
             });
             videoStream.on('end', () => {
                 console.log('There will be no more data.');
-                var track = new Track({
-                    user:userData._id,
-                    name:title,
-                    artist:artistId,
-                    videoId:videoId
-                })
-                track.save().then((newTrack)=>{
-                    //"$push": { "childrens": employee._id }
-                    Artist.updateOne({_id:artistId},{
-                        $push:{tracks:newTrack._id}
-                    }).exec(()=>{
-                        console.log('user track save successfully!!! ')
-                        convertToMp3(title).then(()=>{
-                            global.io.to(userData._id).emit('Track_Downloaded',{
-                                artist_id:artistId,
-                                trackData:newTrack,
-                                videoId:videoId,
-                                url:title
-                            })
-                            console.log('FILE DOWNLODED AND CONVERTED TO MP3 TOOOO') 
-                        }).catch(()=>{
-                            global.io.to(userData._id).emit('Error',true);
-                        })
+                convertToMp3(title).then(()=>{
+                    global.io.to(userData._id).emit('Track_Downloaded',{
+                      //  artist_id:artistId,
+                       // trackData:newTrack,
+                        videoId:videoId,
+                        url:title
                     })
-                    
+                    console.log('FILE DOWNLODED AND CONVERTED TO MP3 TOOOO') 
+                }).catch(()=>{
+                    global.io.to(userData._id).emit('Error',true);
                 })
+                // var track = new Track({
+                //     user:userData._id,
+                //     name:title,
+                //     artist:artistId,
+                //     videoId:videoId
+                // })
+                // track.save().then((newTrack)=>{
+                //     //"$push": { "childrens": employee._id }
+                //     Artist.updateOne({_id:artistId},{
+                //         $push:{tracks:newTrack._id}
+                //     }).exec(()=>{
+                //         console.log('user track save successfully!!! ')
+                       
+                //     })
+                    
+                // })
                 
             });
         }catch(e){

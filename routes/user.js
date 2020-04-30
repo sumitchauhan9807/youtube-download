@@ -48,7 +48,7 @@ router.get('/delete/:type',(req,res,next)=>{
         }
     });
 })
-router.get('/',userMiddleware.userData,(req,res,next)=>{
+router.get('/',(req,res,next)=>{
     res.sendFile(path.join(__dirname,"../",'/index.html'));
 })
 var x=true
@@ -72,8 +72,10 @@ router.get('/convert',(req,res,next)=>{
     res.send('asdasd');
 })
 
-router.post('/music',userMiddleware.userData,(req,res,next)=>{
-    var userData = req.userData;
+router.post('/music',(req,res,next)=>{
+    var userData = {
+        _id:"5e821c86d99be04a67062704"
+    }
     var videoId = req.body.videoId;
     var artistId = req.body.artistId;
     console.log(videoId,artistId)
@@ -92,7 +94,7 @@ router.get('/artists',userMiddleware.userData,(req,res,next)=>{
     })
 })
 
-router.get('/search/:searchtext',userMiddleware.userData,(req,res,next)=>{
+router.get('/search/:searchtext',(req,res,next)=>{
     let searchText = req.params.searchtext;
     console.log(searchText)
     musicController.searchResults(searchText,req.userData).then((searchResults)=>{
