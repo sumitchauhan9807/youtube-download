@@ -23,7 +23,7 @@ var {google} = require('googleapis');
 exports.searchResults = (searchText,userData)=>{
     //AIzaSyDlIyaKk59zXr4Htf08G6nD0yU5ih9twe4
     return new Promise((resolve,reject)=>{
-        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyARjHQlFJ2MBLfyyZFjSafToCDKLXd75JY' } );
+        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ' } );
 
         var request =  youtubeV3.search.list({
             part: 'snippet',
