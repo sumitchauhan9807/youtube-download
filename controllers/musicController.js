@@ -23,61 +23,67 @@ var {google} = require('googleapis');
 exports.searchResults = (searchText,userData)=>{
     //AIzaSyDlIyaKk59zXr4Htf08G6nD0yU5ih9twe4
     //AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ
+    //ssh -i "sumit.pem" ec2-user@ec2-52-66-243-150.ap-south-1.compute.amazonaws.com
     return new Promise((resolve,reject)=>{
         youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ' } );
-
-        var request =  youtubeV3.search.list({
-            part: 'snippet',
-            type: 'video',
-            q: searchText,
-            maxResults: 50,
-          //  order: 'date',
-            safeSearch: 'moderate',
-            videoEmbeddable: true
-        }, (err,response) => {
-            if(err){
-                return reject(err)
-            }
-
-            var searchVideoData  = response.data.items;
-            return resolve(searchVideoData);
-            var searchVideoIds = searchVideoData.map((searchVideo)=>{
-                return searchVideo.id.videoId
-            })
-            var query = {$and:[
-                {user:userData._id},
-                {videoId:{$in:searchVideoIds}}
-            ]}
-            Track.find(query).exec((err,result)=>{
-                console.log(result);
-                let foundVideosIdArray = result.map((foundVideo)=>{
-                    return foundVideo.videoId
-                })
-            //    var foundVideosIdArray = [];
-                console.log(foundVideosIdArray)
-                var returnData = searchVideoData.map((thisSearchedVideo)=>{
-                    if(foundVideosIdArray.includes(thisSearchedVideo.id.videoId)){
-                        console.log('found')
-                        var thisVideoSavedData = result.find((foundData)=>{
-                            return thisSearchedVideo.id.videoId == foundData.videoId
-                        })
-                        thisSearchedVideo.foundData =  true; 
-                        thisSearchedVideo.url = thisVideoSavedData.name
-                        return thisSearchedVideo
-                    }else{
-                        console.log('n-found')
-                        thisSearchedVideo.foundData =  false;
-                        return thisSearchedVideo
+            try{
+                var request =  youtubeV3.search.list({
+                    part: 'snippet',
+                    type: 'video',
+                    q: searchText,
+                    maxResults: 50,
+                  //  order: 'date',
+                    safeSearch: 'moderate',
+                    videoEmbeddable: true
+                }, (err,response) => {
+                    if(err){
+                        return resolve(err)
                     }
+        
+                    var searchVideoData  = response.data.items;
+                    return resolve(searchVideoData);
+                });
+            }catch(err){
+                return resolve(err);
+            }
+        // return
+        //     var searchVideoIds = searchVideoData.map((searchVideo)=>{
+        //         return searchVideo.id.videoId
+        //     })
+        //     var query = {$and:[
+        //         {user:userData._id},
+        //         {videoId:{$in:searchVideoIds}}
+        //     ]}
+        //     Track.find(query).exec((err,result)=>{
+        //         console.log(result);
+        //         let foundVideosIdArray = result.map((foundVideo)=>{
+        //             return foundVideo.videoId
+        //         })
+        //     //    var foundVideosIdArray = [];
+        //         console.log(foundVideosIdArray)
+        //         var returnData = searchVideoData.map((thisSearchedVideo)=>{
+        //             if(foundVideosIdArray.includes(thisSearchedVideo.id.videoId)){
+        //                 console.log('found')
+        //                 var thisVideoSavedData = result.find((foundData)=>{
+        //                     return thisSearchedVideo.id.videoId == foundData.videoId
+        //                 })
+        //                 thisSearchedVideo.foundData =  true; 
+        //                 thisSearchedVideo.url = thisVideoSavedData.name
+        //                 return thisSearchedVideo
+        //             }else{
+        //                 console.log('n-found')
+        //                 thisSearchedVideo.foundData =  false;
+        //                 return thisSearchedVideo
+        //             }
                     
-                })
-                resolve(returnData);
-            })
+        //         })
+        //         resolve(returnData);
+        //     })
             
            
             //console.log(err)
            // console.log(response.data.items);
-        });
+        
       })
     
 }

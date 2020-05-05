@@ -78,7 +78,7 @@
     <div class="row searchResultsInner">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <div class="alert alert-danger animated infinite headShake" role="alert" style="height: 100px;
+        <div class="alert alert-danger animated infinite headShake" role="alert" style="height:auto;
         text-align: center;
         font-size: 29px;
         font-family: cursive;
@@ -116,6 +116,11 @@ $(document).on('click','.searchSong',function(){
   var searchedText = $('.searchSongInputText').val();
   console.log(searchedText)
   getSearchResults(searchedText).then((searchResults)=>{
+    if(searchResults.code == 403){
+      $(document).find('.alert-danger').text(`Site is Down Please come again . . . later or contact SUMIT !!
+        Sorry for the inconvenience
+      `)
+    }
       populateSearchData(searchResults);
     })
 })
