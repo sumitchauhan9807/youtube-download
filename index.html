@@ -223,10 +223,10 @@ function populateSearchData(searchResults){
       `
       <div class="row mleft10">
         <div class="col-md-6" mtop5>
-            <a target="_blank" href="http://localhost:3000/media/audio/${searchRes.url}.mp3" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default" download>Downlaod audio</a>
+            <a target="_blank" href="http://localhost:3000/media/audio/${searchRes.url}.mp3" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default" >Downlaod audio</a>
           </div>
           <div class="col-md-6 mtop5">
-            <a target="_blank" href="http://localhost:3000/media/video/${searchRes.url}.mp4" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default" download >Download video</a>
+            <a target="_blank" href="http://localhost:3000/media/video/${searchRes.url}.mp4" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default"  >Download video</a>
           </div>
         </div>
         `
@@ -293,10 +293,10 @@ const socket = io(serverUrl);
     
     var newHtml = `<div class="row mleft10">
         <div class="col-md-6">
-            <a target="_blank" href="${serverUrl}media/audio/${data.url}.mp3" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default" download >Download audio</a>
+            <a target="_blank" href="${serverUrl}media/audio/${data.url}.mp3" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default"  >Download audio</a>
           </div>
           <div class="col-md-6">
-            <a target="_blank" href="${serverUrl}media/video/${data.url}.mp4" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default" download >Download video</a>
+            <a target="_blank" href="${serverUrl}media/video/${data.url}.mp4" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default"  >Download video</a>
           </div>
         </div>`
     $(document).find(progressBarClass).parents('.card').find('.videoStatus').html(newHtml)
