@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -72,30 +73,14 @@
     </div>
    <button type="button" class="btn searchSong">Search</button>
    <br><br>
-  <div class="row">
-    <div class="col-md-6">
-      <h2>Artists</h2>
-      <div class="allArtists">
-          <ul class="list-group artistList">
-          </ul>
-        </div>
-    </div>
-    <div class="col-md-6">
-      <h2>Songs</h2>
-      <div class="card minHei">
-        <ul class="thisArtSongsList">
-
-        </ul>
-      </div>
-    </div>
-  </div>
+  
   <div class="searchResults">
     <div class="row searchResultsInner">
       <div class="col-md-3">
         <div class="card">
           <div class="card-header">Header</div>
           <div class="card-body">
-            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
+           <center> <img class="videoThumb animated infinite pulse" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg"></center>
             <div class="row">
             <div class="col-md-6">
               <a class="btn btn-default">dwnld</a>
@@ -163,8 +148,8 @@
 <script>
 var artistsDataArray = [];
 var currentTasks = [];
-var serverUrl = "http://52.66.243.150:5000/"
-//var serverUrl = "http://localhost:5000/"
+//var serverUrl = "http://52.66.243.150:5000/"
+var serverUrl = "http://localhost:5000/"
 
 $(document).on("click",".zipMySongs",function(){
   $.ajax({
@@ -284,10 +269,10 @@ function populateSearchData(searchResults){
       `
       <div class="row mleft10">
         <div class="col-md-6" mtop5>
-            <a target="_blank" href="http://localhost:3000/media/audio/${searchRes.url}.mp3" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Play audio</a>
+            <a target="_blank" href="http://localhost:3000/media/audio/${searchRes.url}.mp3" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Downlaod audio</a>
           </div>
           <div class="col-md-6 mtop5">
-            <a target="_blank" href="http://localhost:3000/media/video/${searchRes.url}.mp4" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Play video</a>
+            <a target="_blank" href="http://localhost:3000/media/video/${searchRes.url}.mp4" play_video_id="${searchRes.id.videoId}" video_name="${searchRes.id.videoId}" class="playThisTrack btn btn-default">Download video</a>
           </div>
         </div>
         `
@@ -302,7 +287,7 @@ function populateSearchData(searchResults){
         <div class="card">
           <div class="card-header">${searchRes.snippet.title.slice(0,40)}</div>
           <div class="card-body">
-            <img class="videoThumb" src="${searchRes.snippet.thumbnails.medium.url}">
+            <center><img class="videoThumb" src="${searchRes.snippet.thumbnails.medium.url}"></center>
             <div class="row">
               <div class="videoStatus">
                 ${playBtnHtml}
@@ -354,18 +339,20 @@ const socket = io(serverUrl);
     
     var newHtml = `<div class="row mleft10">
         <div class="col-md-6">
-            <a target="_blank" href="${serverUrl}media/audio/${data.url}.mp3" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play audio</a>
+            <a target="_blank" href="${serverUrl}media/audio/${data.url}.mp3" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Download audio</a>
           </div>
           <div class="col-md-6">
-            <a target="_blank" href="${serverUrl}media/video/${data.url}.mp4" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Play video</a>
+            <a target="_blank" href="${serverUrl}media/video/${data.url}.mp4" play_video_id="${data.videoId}" video_name="${data.videoId}" class="playThisTrack btn btn-default">Download video</a>
           </div>
         </div>`
     $(document).find(progressBarClass).parents('.card').find('.videoStatus').html(newHtml)
     currentTasks = currentTasks.filter((thisTask)=>{
         return thisTask.videoId != data.videoId
     })
+    var theimage = $(document).find(progressBarClass).parents('.card-body').find('img');
+    theimage.removeClass('headShake').addClass('pulse');
     console.log(currentTasks,'after');
-    alert(data.url+' is ready to download !!!!')
+    //alert(data.url+' is ready to download !!!!')
     //videoId:thisVideoId,
     //loaderRef:loader
   })
@@ -376,12 +363,21 @@ const socket = io(serverUrl);
     $(document).find(progressBarClass).removeClass('hide');
     var theProgressBar = $(document).find(progressBarClass).find('.progress-bar-animated')
     theProgressBar.text(data.percent)
+    var theimage = $(document).find(progressBarClass).parents('.card-body').find('img');
+    if(!theimage.hasClass('animated')){
+      theimage.addClass('animated infinite headShake')
+    }
+    //animated infinite headShake
   })
 }
 </script>
 </body>
 
 <style>
+  .card-header {
+    background: lavender;
+    font-family: cursive;
+}
   .progress{
     margin-top: 8px;
   }
@@ -406,7 +402,7 @@ const socket = io(serverUrl);
   .card a{
     height: 23px;
     padding: 0px;
-    width: 80px;
+    width: 123px;
     margin: 0px;
     float: left;
   }
@@ -463,6 +459,15 @@ const socket = io(serverUrl);
 }
 .mleft10{
   margin-left:10px;
+}
+@media screen and (max-width: 600px) {
+  .card-body img {
+    text-align: center;
+  }
+  .card a {
+    margin: 5px;
+  }
+
 }
 </style>
 </html>
