@@ -11,7 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 </head>
-<body>
+<body class="bg">
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark primary-color" style="background: cadetblue;">
 
@@ -76,70 +76,19 @@
   
   <div class="searchResults">
     <div class="row searchResultsInner">
-      <div class="col-md-3">
-        <div class="card">
-          <div class="card-header">Header</div>
-          <div class="card-body">
-           <center> <img class="videoThumb animated infinite pulse" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg"></center>
-            <div class="row">
-            <div class="col-md-6">
-              <a class="btn btn-default">dwnld</a>
-            </div>
-            <div class="col-md-6 loader hide">
-              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
-            </div>
-          </div>
-          </div> 
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="alert alert-danger animated infinite headShake" role="alert" style="height: 100px;
+        text-align: center;
+        font-size: 29px;
+        font-family: cursive;
+        padding: 25px;">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only"></span>
+          Search for songs above !!!
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card">
-          <div class="card-header">Header</div>
-          <div class="card-body">
-            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
-            <div class="row">
-            <div class="col-md-6">
-              <a class="btn btn-default">dwnld</a>
-            </div>
-            <div class="col-md-6 loader hide">
-              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
-            </div>
-          </div>
-          </div> 
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <div class="card-header">Header</div>
-          <div class="card-body">
-            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
-            <div class="row">
-            <div class="col-md-6">
-              <a class="btn btn-default">dwnld</a>
-            </div>
-            <div class="col-md-6 loader hide">
-              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
-            </div>
-          </div>
-          </div> 
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <div class="card-header">Header</div>
-          <div class="card-body">
-            <img class="videoThumb" src="https://image.shutterstock.com/image-photo/summer-beach-holiday-online-shopping-260nw-461355724.jpg">
-            <div class="row">
-            <div class="col-md-6">
-              <a class="btn btn-default">dwnld</a>
-            </div>
-            <div class="col-md-6 loader hide">
-              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
-            </div>
-          </div>
-          </div> 
-        </div>
-      </div>
+      <div class="col-md-3"></div>
     </div>
   </div>
 </div>
@@ -468,6 +417,21 @@ const socket = io(serverUrl);
     margin: 5px;
   }
 
+}
+body, html {
+  height: 100%;
+}
+.bg {
+  /* The image used */
+  background-image: url("https://c4.wallpaperflare.com/wallpaper/996/940/1004/microphone-equipment-dark-background-audio-wallpaper-preview.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat:repeat;
+  background-size: cover;
 }
 </style>
 </html>
