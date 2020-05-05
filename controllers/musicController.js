@@ -25,7 +25,7 @@ exports.searchResults = (searchText,userData)=>{
     //AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ
     //ssh -i "sumit.pem" ec2-user@ec2-52-66-243-150.ap-south-1.compute.amazonaws.com
     return new Promise((resolve,reject)=>{
-        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ' } );
+        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyAJKjLYILEzouNO2htMxg-P2tFO4oQkln0' } );
             try{
                 var request =  youtubeV3.search.list({
                     part: 'snippet',
