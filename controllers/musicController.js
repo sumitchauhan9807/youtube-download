@@ -23,9 +23,11 @@ var {google} = require('googleapis');
 exports.searchResults = (searchText,userData)=>{
     //AIzaSyDlIyaKk59zXr4Htf08G6nD0yU5ih9twe4
     //AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ
+    //AIzaSyAJKjLYILEzouNO2htMxg-P2tFO4oQkln0
+    //
     //ssh -i "sumit.pem" ec2-user@ec2-52-66-243-150.ap-south-1.compute.amazonaws.com
     return new Promise((resolve,reject)=>{
-        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyAJKjLYILEzouNO2htMxg-P2tFO4oQkln0' } );
+        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyC14H20_yhIdq2fXnh0a1iR1_HtIcSK3ZM' } );
             try{
                 var request =  youtubeV3.search.list({
                     part: 'snippet',
