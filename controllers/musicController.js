@@ -8,18 +8,10 @@ var zip = require('file-zip');
 //var videoId = "zUwEIt9ez7M";
 var {google} = require('googleapis');
 //https://github.com/sumitchauhan9807/slack.git
-
+//git remote add origin git@github.com:sumitchauhan9807/youtube-download.git
 //git remote add origin https://github.com/sumitchauhan9807/youtube-download.git
 
-//git remote set-url youtube https://github.com/sumitchauhan9807/youtube-download.git
-
-//echo "
-// [mongodb-org-3.0]
-// name=MongoDB Repository
-// baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.0/x86_64/
-// gpgcheck=0
-// enabled=1" > /
-
+// git token -->   913c06f64e5a5b52fed4ff43d1103be7498a46af
 exports.searchResults = (searchText,userData)=>{
     //AIzaSyDlIyaKk59zXr4Htf08G6nD0yU5ih9twe4
     //AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ
