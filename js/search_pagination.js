@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        if($(window).scrollTop() + $(window).height()  == $(document).height()) {
             //alert("bottom!");
             if(window.nextPage){
                 $(".loading").css("display","block")
