@@ -20,96 +20,69 @@ exports.searchResults = (searchText,userData)=>{
         let filter;
         ytsr.getFilters(searchText, function(err, filters) {
             if(err) throw err;
+           // console.log(filters,"THESE ARE THE FILTERS 1")
             filter = filters.get('Type').find(o => o.name === 'Video');
             ytsr.getFilters(filter.ref, function(err, filters) {
                 if(err) throw err;
+              //  console.log(filters,"THESE ARE THE FILTERS 2")
                 filter = filters.get('Duration').find(o => o.name.startsWith('Short'));
+               // console.log(filter);
                 var options = {
-                limit: 30,
-                nextpageRef: filter.ref,
+                 limit: 30,
+                 nextpageRef: filter.ref,
                 }
+                console.log(filter.ref,'next page ref');
                 ytsr(null, options, function(err, searchResults) {
                 if(err) throw err;
                    console.log(searchResults);
                    searchResults.items.forEach((thisVideo)=>{
                         var obj = {};
-                        obj.videoId = thisVideo.link.split("?v=")[1];
-                        obj.title = thisVideo.title;
-                        obj.url = thisVideo.thumbnail
-                        return_result_array.push(obj)
+                        if(thisVideo.link){
+                            obj.videoId = thisVideo.link.split("?v=")[1];
+                            obj.title = thisVideo.title;
+                            obj.url = thisVideo.thumbnail
+                            return_result_array.push(obj)
+                        }
                    })
-                   return resolve(return_result_array);
+                   return resolve({
+                    results:return_result_array,
+                    next:searchResults.nextpageRef
+                   });
                 });
             });
         });
 
 
-        return
-
-
-
-        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyARjHQlFJ2MBLfyyZFjSafToCDKLXd75JY' } );
-            try{
-                var request =  youtubeV3.search.list({
-                    part: 'snippet',
-                    type: 'video',
-                    q: searchText,
-                    maxResults: 50,
-                  //  order: 'date',
-                    safeSearch: 'moderate',
-                    videoEmbeddable: true
-                }, (err,response) => {
-                    if(err){
-                        console.log(err)
-                        return resolve(err)
-                    }
-        
-                    var searchVideoData  = response.data.items;
-                    return resolve(searchVideoData);
-                });
-            }catch(err){
-                return resolve(err);
-            }
-        // return
-        //     var searchVideoIds = searchVideoData.map((searchVideo)=>{
-        //         return searchVideo.id.videoId
-        //     })
-        //     var query = {$and:[
-        //         {user:userData._id},
-        //         {videoId:{$in:searchVideoIds}}
-        //     ]}
-        //     Track.find(query).exec((err,result)=>{
-        //         console.log(result);
-        //         let foundVideosIdArray = result.map((foundVideo)=>{
-        //             return foundVideo.videoId
-        //         })
-        //     //    var foundVideosIdArray = [];
-        //         console.log(foundVideosIdArray)
-        //         var returnData = searchVideoData.map((thisSearchedVideo)=>{
-        //             if(foundVideosIdArray.includes(thisSearchedVideo.id.videoId)){
-        //                 console.log('found')
-        //                 var thisVideoSavedData = result.find((foundData)=>{
-        //                     return thisSearchedVideo.id.videoId == foundData.videoId
-        //                 })
-        //                 thisSearchedVideo.foundData =  true; 
-        //                 thisSearchedVideo.url = thisVideoSavedData.name
-        //                 return thisSearchedVideo
-        //             }else{
-        //                 console.log('n-found')
-        //                 thisSearchedVideo.foundData =  false;
-        //                 return thisSearchedVideo
-        //             }
-                    
-        //         })
-        //         resolve(returnData);
-        //     })
-            
-           
-            //console.log(err)
-           // console.log(response.data.items);
-        
       })
     
+}
+
+exports.searchPagination = (searchText) =>{
+    searchText = "https://www.youtube.com/"+searchText;
+    var return_result_array = [];
+    return new Promise((resolve,reject)=>{
+        var options = {
+            limit: 30,
+            nextpageRef: searchText,
+           }
+           ytsr(null, options, function(err, searchResults) {
+           if(err) throw err;
+              console.log(searchResults);
+              searchResults.items.forEach((thisVideo)=>{
+                   var obj = {};
+                   if(thisVideo.link){
+                       obj.videoId = thisVideo.link.split("?v=")[1];
+                       obj.title = thisVideo.title;
+                       obj.url = thisVideo.thumbnail
+                       return_result_array.push(obj)
+                   }
+              })
+              return resolve({
+               results:return_result_array,
+               next:searchResults.nextpageRef
+              });
+           });
+    })
 }
 
 exports.getUserArtists = (userData)=>{

@@ -102,6 +102,14 @@ router.get('/search/:searchtext',(req,res,next)=>{
     });
 })
 
+router.post("/searchpagination",(req,res)=>{
+    console.log(req.body.next,'next');
+    console.log(req.body)
+    musicController.searchPagination(req.body.next).then((searchResults)=>{
+        res.send(searchResults)
+    })
+})
+
 
 router.get('/getmysongs',userMiddleware.userData,(req,res,next)=>{
     let userid  = req.userData._id

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 app.use('/media',express.static('media'))
+app.use('/js',express.static('js'))
 // /http://localhost:3000/media/audio/Iron_Maiden.mp3
 const userRouter = require('./routes/user');
 const request = require('request'); 
