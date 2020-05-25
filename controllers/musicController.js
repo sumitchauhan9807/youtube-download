@@ -13,9 +13,10 @@ var {google} = require('googleapis');
 
 // git token -->   913c06f64e5a5b52fed4ff43d1103be7498a46af
 exports.searchResults = (searchText,userData)=>{
-    //AIzaSyDlIyaKk59zXr4Htf08G6nD0yU5ih9twe4
-    //AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ
-    //AIzaSyAJKjLYILEzouNO2htMxg-P2tFO4oQkln0
+    //AIzaSyDlIyaKk59zXr4Htf08G6nD0yU5ih9twe4 --1
+    //AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ --2
+    //AIzaSyAJKjLYILEzouNO2htMxg-P2tFO4oQkln0 --3
+    //AIzaSyC14H20_yhIdq2fXnh0a1iR1_HtIcSK3ZM --4
     //
     //ssh -i "sumit.pem" ec2-user@ec2-52-66-243-150.ap-south-1.compute.amazonaws.com
     return new Promise((resolve,reject)=>{
@@ -31,6 +32,7 @@ exports.searchResults = (searchText,userData)=>{
                     videoEmbeddable: true
                 }, (err,response) => {
                     if(err){
+                        console.log(err)
                         return resolve(err)
                     }
         
