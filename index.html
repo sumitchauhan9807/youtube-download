@@ -233,15 +233,15 @@ function populateSearchData(searchResults){
     }else{
       playBtnHtml +=`
       <div class="col-md-6">
-              <a video_id="${searchRes.id.videoId}" class="btn btn-default downloadThisVideo">dwnld</a>
+              <a video_id="${searchRes.videoId}" class="btn btn-default downloadThisVideo">dwnld</a>
       </div>`
     }
     popHtml+= `
     <div class="col-md-3">
         <div class="card">
-          <div class="card-header">${searchRes.snippet.title.slice(0,40)}</div>
+          <div class="card-header">${searchRes.title.slice(0,40)}</div>
           <div class="card-body">
-            <center><img class="videoThumb" src="${searchRes.snippet.thumbnails.medium.url}"></center>
+            <center><img class="videoThumb" src="${searchRes.url}"></center>
             <div class="row">
               <div class="videoStatus">
                 ${playBtnHtml}
@@ -250,7 +250,7 @@ function populateSearchData(searchResults){
               <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
             </div>
           </div>
-          <div class="progress  hide progress_${searchRes.id.videoId}">
+          <div class="progress  hide progress_${searchRes.videoId}">
                 <div class="progress-bar-animated"></div>
           </div>
           </div> 

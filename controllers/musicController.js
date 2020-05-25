@@ -7,20 +7,48 @@ const Track = require('../models/track');
 var zip = require('file-zip');
 //var videoId = "zUwEIt9ez7M";
 var {google} = require('googleapis');
+const ytsr = require('ytsr');
 //https://github.com/sumitchauhan9807/slack.git
 //git remote add origin git@github.com:sumitchauhan9807/youtube-download.git
 //git remote add origin https://github.com/sumitchauhan9807/youtube-download.git
 
 // git token -->   913c06f64e5a5b52fed4ff43d1103be7498a46af
 exports.searchResults = (searchText,userData)=>{
-    //AIzaSyDlIyaKk59zXr4Htf08G6nD0yU5ih9twe4 --1
-    //AIzaSyDKYj2DDAbn_d2zYcgSq5mzfQVxJ8T9csQ --2
-    //AIzaSyAJKjLYILEzouNO2htMxg-P2tFO4oQkln0 --3
-    //AIzaSyC14H20_yhIdq2fXnh0a1iR1_HtIcSK3ZM --4
-    //
+    var return_result_array=[];
     //ssh -i "sumit.pem" ec2-user@ec2-52-66-243-150.ap-south-1.compute.amazonaws.com
     return new Promise((resolve,reject)=>{
-        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyC14H20_yhIdq2fXnh0a1iR1_HtIcSK3ZM' } );
+        let filter;
+        ytsr.getFilters(searchText, function(err, filters) {
+            if(err) throw err;
+            filter = filters.get('Type').find(o => o.name === 'Video');
+            ytsr.getFilters(filter.ref, function(err, filters) {
+                if(err) throw err;
+                filter = filters.get('Duration').find(o => o.name.startsWith('Short'));
+                var options = {
+                limit: 30,
+                nextpageRef: filter.ref,
+                }
+                ytsr(null, options, function(err, searchResults) {
+                if(err) throw err;
+                   console.log(searchResults);
+                   searchResults.items.forEach((thisVideo)=>{
+                        var obj = {};
+                        obj.videoId = thisVideo.link.split("?v=")[1];
+                        obj.title = thisVideo.title;
+                        obj.url = thisVideo.thumbnail
+                        return_result_array.push(obj)
+                   })
+                   return resolve(return_result_array);
+                });
+            });
+        });
+
+
+        return
+
+
+
+        youtubeV3 = google.youtube( { version: 'v3', auth: 'AIzaSyARjHQlFJ2MBLfyyZFjSafToCDKLXd75JY' } );
             try{
                 var request =  youtubeV3.search.list({
                     part: 'snippet',

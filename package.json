@@ -22,7 +22,8 @@
     "socket.io": "^2.3.0",
     "youtube-mp3-downloader": "^0.6.6",
     "youtube-search": "^1.1.4",
-    "ytdl-core": "^2.0.1"
+    "ytdl-core": "^2.0.1",
+    "ytsr": "^0.1.14"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
