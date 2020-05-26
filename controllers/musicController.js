@@ -25,6 +25,7 @@ exports.searchResults = (searchText,userData)=>{
                  if(thisVideo.type == 'video'){
                      obj.videoId = thisVideo.link.split("?v=")[1];
                      obj.title = thisVideo.title;
+                     obj.duration = thisVideo.duration;
                      obj.url = thisVideo.thumbnail
                      return_result_array.push(obj)
                  }

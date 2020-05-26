@@ -298,7 +298,9 @@ function populateSearchData(searchResults,action){
     popHtml+= `
     <div class="col-md-3">
         <div class="card">
-          <div class="card-header">${searchRes.title.slice(0,40)}</div>
+          <div class="card-header">${searchRes.title.slice(0,40)}
+            <span style="display:block;font-size: 14px;color: brown;">Duration: ${searchRes.duration} minutes</span>
+            </div>
           <div class="card-body">
             <center><img class="videoThumb" src="${searchRes.url}"></center>
             <div class="row">
