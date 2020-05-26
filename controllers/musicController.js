@@ -17,40 +17,57 @@ exports.searchResults = (searchText,userData)=>{
     var return_result_array=[];
     //ssh -i "sumit.pem" ec2-user@ec2-52-66-243-150.ap-south-1.compute.amazonaws.com
     return new Promise((resolve,reject)=>{
-        let filter;
-        ytsr.getFilters(searchText, function(err, filters) {
-            if(err) throw err;
-           // console.log(filters,"THESE ARE THE FILTERS 1")
-            filter = filters.get('Type').find(o => o.name === 'Video');
-            ytsr.getFilters(filter.ref, function(err, filters) {
-                if(err) throw err;
-              //  console.log(filters,"THESE ARE THE FILTERS 2")
-                filter = filters.get('Duration').find(o => o.name.startsWith('Short'));
-               // console.log(filter);
-                var options = {
-                 limit: 30,
-                 nextpageRef: filter.ref,
-                }
-                console.log(filter.ref,'next page ref');
-                ytsr(null, options, function(err, searchResults) {
-                if(err) throw err;
-                   console.log(searchResults);
-                   searchResults.items.forEach((thisVideo)=>{
-                        var obj = {};
-                        if(thisVideo.link){
-                            obj.videoId = thisVideo.link.split("?v=")[1];
-                            obj.title = thisVideo.title;
-                            obj.url = thisVideo.thumbnail
-                            return_result_array.push(obj)
-                        }
-                   })
-                   return resolve({
-                    results:return_result_array,
-                    next:searchResults.nextpageRef
-                   });
-                });
+
+        ytsr(searchText, {}, function(error,searchResults){
+            console.log(searchResults);
+            searchResults.items.forEach((thisVideo)=>{
+                 var obj = {};
+                 if(thisVideo.type == 'video'){
+                     obj.videoId = thisVideo.link.split("?v=")[1];
+                     obj.title = thisVideo.title;
+                     obj.url = thisVideo.thumbnail
+                     return_result_array.push(obj)
+                 }
+            })
+            return resolve({
+             results:return_result_array,
+             next:searchResults.nextpageRef
             });
         });
+        // let filter;
+        // ytsr.getFilters(searchText, function(err, filters) {
+        //     if(err) throw err;
+        //    // console.log(filters,"THESE ARE THE FILTERS 1")
+        //     filter = filters.get('Type').find(o => o.name === 'Video');
+        //     ytsr.getFilters(filter.ref, function(err, filters) {
+        //         if(err) throw err;
+        //       //  console.log(filters,"THESE ARE THE FILTERS 2")
+        //         filter = filters.get('Duration').find(o => o.name.startsWith('Short'));
+        //        // console.log(filter);
+        //         var options = {
+        //          limit: 30,
+        //          nextpageRef: filter.ref,
+        //         }
+        //         console.log(filter.ref,'next page ref');
+        //         ytsr(null, options, function(err, searchResults) {
+        //         if(err) throw err;
+        //            console.log(searchResults);
+        //            searchResults.items.forEach((thisVideo)=>{
+        //                 var obj = {};
+        //                 if(thisVideo.link){
+        //                     obj.videoId = thisVideo.link.split("?v=")[1];
+        //                     obj.title = thisVideo.title;
+        //                     obj.url = thisVideo.thumbnail
+        //                     return_result_array.push(obj)
+        //                 }
+        //            })
+        //            return resolve({
+        //             results:return_result_array,
+        //             next:searchResults.nextpageRef
+        //            });
+        //         });
+        //     });
+        // });
 
 
       })
