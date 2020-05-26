@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="js/jquery-ui.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -71,11 +72,40 @@
 <div class="container" style="    min-height: 73%;">
     <div class="input-container">
       <i class="fa fa-user icon"></i>
-      <input class="input-field searchSongInputText" type="text" placeholder="Search" name="usrnm">
+      <input  class="input-field searchSongInputText" type="text" placeholder="Search" name="usrnm">
+      <div class="suggestionsDrop">
+        <ul id="currentSearchSuggestions" style="display:none">
+          
+        </ul>
+      </div>
     </div>
    <button type="button" class="btn searchSong">Search</button>
    <br><br>
-  
+  <style>
+    .suggestionsDrop li {
+      list-style-type :none;
+      margin: 5px;
+      border-bottom: solid 1px black;
+    }
+    .suggestionsDrop li:hover{
+      cursor: pointer;
+    }
+    .suggestionsDrop ul {
+      padding-left:28px;
+    }
+    .suggestionsDrop{
+      position: absolute;
+      height: auto;
+      width: 100%;
+      z-index: 1;
+      top: 58px;
+      background:white;
+      opacity: 9;
+    }
+    .input-container{
+      position: relative;
+    }
+  </style>
   <div class="searchResults">
     <div class="row searchResultsInner">
       <div class="col-md-12">

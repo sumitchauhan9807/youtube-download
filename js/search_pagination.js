@@ -19,8 +19,28 @@ function saveSearch(searchText){
     })
     $('.searchHistory').html(searchHistoryHTML)
  }
-$(document).ready(function(){
 
+ function getSuggestions(currentText){
+    return new Promise((resolve,reject)=>{
+        $.ajax({
+            url:'http://localhost:5000/user/suggestions/'+currentText+'',
+            type:'GET',
+            success:function(response){
+                resolve(response)
+            }
+        })
+    })
+ }
+
+ function showSuggestions(results){
+     //currentSearchSuggestions
+     var html=''
+     results.forEach((suggestion)=>{
+        html += `<li>${suggestion}</li>`
+     })
+     $('#currentSearchSuggestions').css('display','block').html(html)
+ }
+$(document).ready(function(){
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height()  == $(document).height()) {
             //alert("bottom!");
@@ -48,6 +68,29 @@ $(document).ready(function(){
      $(document).on("click",".badge",function(){
          var thisSearchText = $(this).text();
          $(".searchSongInputText").val(thisSearchText)
+     })
+     $(document).on("click",".suggestionsDrop li",function(){
+         var suggestionText = $(this).text();
+        $('.searchSongInputText').val(suggestionText);
+        $('#currentSearchSuggestions').css('display','none').html('')
+        $(".searchSong").trigger("click");
+
+     })
+     var getSuggestionsTimeout
+     $(".searchSongInputText").on("keyup",function(){
+         var currentText  = $(this).val();
+         if(currentText.length > 4){
+            clearTimeout(getSuggestionsTimeout);
+            getSuggestionsTimeout = setTimeout(()=>{
+                console.log(currentText)
+                getSuggestions(currentText).then((results)=>{
+                    console.log(results)
+                    showSuggestions(results)
+                })
+             },500)
+         }else{
+            $('#currentSearchSuggestions').css('display','none').html('')
+         }
      })
      populateSearchHistory()
 })

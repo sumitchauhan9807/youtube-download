@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path');
 const fs = require('fs');
 const musicController = require('../controllers/musicController');
+const suggestionCtr = require('../controllers/searchSuggestions');
 const userMiddleware = require('../middleware/user');
 
  
@@ -98,6 +99,14 @@ router.get('/search/:searchtext',(req,res,next)=>{
     let searchText = req.params.searchtext;
     console.log(searchText)
     musicController.searchResults(searchText,req.userData).then((searchResults)=>{
+        res.send(searchResults)
+    });
+})
+
+router.get('/suggestions/:searchtext',(req,res,next)=>{
+    let searchText = req.params.searchtext;
+    console.log(searchText)
+    suggestionCtr.getSearchSuggestions(searchText).then((searchResults)=>{
         res.send(searchResults)
     });
 })
