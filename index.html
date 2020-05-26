@@ -78,8 +78,7 @@
   
   <div class="searchResults">
     <div class="row searchResultsInner">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="alert alert-danger animated infinite headShake" role="alert" style="height:auto;
         text-align: center;
         font-size: 29px;
@@ -88,12 +87,24 @@
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
           <span class="sr-only"></span>
           Search for songs above !!!
+          <br>
+          <div class="searchHistory">
+          </div>
         </div>
       </div>
-      <div class="col-md-3"></div>
     </div>
   </div>
 </div>
+<style>
+  .badge{
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin:3px;
+  }
+  .badge:hover{
+    cursor: pointer;
+  }
+</style>
   <!-- Footer -->
 <footer class="page-footer font-small cyan darken-3" style="background: floralwhite;margin-top:15px">
 
@@ -129,9 +140,34 @@ $(document).on("click",".zipMySongs",function(){
 $(document).on("click",".getMySongs",function(){
   
 })
+//searchSongInputText
+$('.searchSongInputText').keypress(function(event){
+  
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+      var searchedText = $('.searchSongInputText').val();
+      console.log(searchedText)
+      saveSearch(searchedText)
+      $(".loading").css("display","block")
+      getSearchResults(searchedText).then((searchResults)=>{
+        if(searchResults.code == 403){
+          $(document).find('.alert-danger').text(`Site is Down Please come again . . . later or contact SUMIT !!
+            Sorry for the inconvenience
+          `)
+        }
+        $(".loading").css("display","none")
+        //console.log(searchResults.next)
+          window.nextPage = searchResults.next;
+          //console.log(window.nextPage)
+          populateSearchData(searchResults,true);
+          
+        })
+    }
+});
 $(document).on('click','.searchSong',function(){
   var searchedText = $('.searchSongInputText').val();
   console.log(searchedText)
+  saveSearch(searchedText)
   $(".loading").css("display","block")
   getSearchResults(searchedText).then((searchResults)=>{
     if(searchResults.code == 403){

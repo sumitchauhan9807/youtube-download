@@ -1,13 +1,15 @@
-const ytsr = require('ytsr');
-let filter;
+// const ytsr = require('ytsr');
+// let filter;
 
 
-let searchString = 'iron maiden';
-ytsr(searchString, {}, function(error,results){
-    console.log(results)
-});
+// let searchString = 'iron maiden';
+// ytsr(searchString, {}, function(error,results){
+//     console.log(results)
+// });
 
-
+for(var i=0;i<20;i++){
+    console.log(Math.round(Math.random() * 8))
+}
 
 // ytsr.getFilters('iron maiden', function(err, filters) {
 //   if(err) throw err;
