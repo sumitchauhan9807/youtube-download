@@ -23,7 +23,7 @@ function saveSearch(searchText){
  function getSuggestions(currentText){
     return new Promise((resolve,reject)=>{
         $.ajax({
-            url:'http://localhost:5000/user/suggestions/'+currentText+'',
+            url:'http://52.66.243.150:5000/user/suggestions/'+currentText+'',
             type:'GET',
             success:function(response){
                 resolve(response)
