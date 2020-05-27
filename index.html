@@ -332,13 +332,15 @@ function populateSearchData(searchResults,action){
             <span style="display:block;font-size: 14px;color: brown;">Duration: ${searchRes.duration} minutes</span>
             </div>
           <div class="card-body">
-            <center><img class="videoThumb" src="${searchRes.url}"></center>
+            <center class="videoArea">
+              <img videoId="${searchRes.videoId}" class="videoThumb" src="${searchRes.url}">
+            </center>
             <div class="row">
               <div class="videoStatus">
                 ${playBtnHtml}
             </div>
             <div class="col-md-6 loader hide">
-              <img src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
+              <img  src="https://thumbs.gfycat.com/SnoopyEasyBorer-size_restricted.gif">
             </div>
           </div>
           <div class="progress  hide progress_${searchRes.videoId}">
@@ -426,6 +428,9 @@ const socket = io(serverUrl);
 </body>
 
 <style>
+  .videoThumb:hover{
+    cursor: pointer;
+  }
   .card-header {
     background: lavender;
     font-family: cursive;
