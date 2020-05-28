@@ -76,14 +76,14 @@ $(document).ready(function(){
         $(".searchSong").trigger("click");
 
      })
-     $(document).on("click",".videoThumb",function(){
-         var videoId = $(this).attr("videoId")
-         var frame = `<iframe class="videoThumb"
-            src="https://www.youtube.com/embed/${videoId}">
-         </iframe>  `
-         $(this).parents(".videoArea").html(frame)
-            //alert(videoId)
-     })
+    //  $(document).on("click",".videoThumb",function(){
+    //      var videoId = $(this).attr("videoId")
+    //      var frame = `<iframe class="videoThumb"
+    //         src="https://www.youtube.com/embed/${videoId}">
+    //      </iframe>  `
+    //      $(this).parents(".videoArea").html(frame)
+    //         //alert(videoId)
+    //  })
      var getSuggestionsTimeout
      $(".searchSongInputText").on("keyup",function(){
          var currentText  = $(this).val();
