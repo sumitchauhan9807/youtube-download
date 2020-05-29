@@ -134,14 +134,22 @@ exports.downloadSong = (userData,videoId,artistId)=>{
         String.prototype.cleanup = function() {
             return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "_");
          }
+         console.log(videoData.title)
         var title = videoData.title
         //console.log(title);
         title = title.cleanup();
-        console.log(title);
         //return res.send(title);
         //title = title+'.mp4';
-        try{
-            var videoStream = ytdl('https://www.youtube.com/watch?v='+videoId+'')
+        
+       // try{
+            console.log(videoId,'VIDEO ID IS HERE')
+            var url = 'http://www.youtube.com/watch?v='+videoId+''
+            url = 'http://www.youtube.com/watch?v=A02s8omM_hI'
+            console.log(url);
+            console.log(typeof url)
+            var videoStream = ytdl(url);
+            console.log(videoStream);
+
             videoStream.videoId = videoId;
             videoStream.pipe(fs.createWriteStream('./media/video/'+title+'.mp4'))
             var dwnloadedBytes=0
@@ -166,27 +174,11 @@ exports.downloadSong = (userData,videoId,artistId)=>{
                 }).catch(()=>{
                     global.io.to(userData._id).emit('Error',true);
                 })
-                // var track = new Track({
-                //     user:userData._id,
-                //     name:title,
-                //     artist:artistId,
-                //     videoId:videoId
-                // })
-                // track.save().then((newTrack)=>{
-                //     //"$push": { "childrens": employee._id }
-                //     Artist.updateOne({_id:artistId},{
-                //         $push:{tracks:newTrack._id}
-                //     }).exec(()=>{
-                //         console.log('user track save successfully!!! ')
-                       
-                //     })
-                    
-                // })
-                
             });
-        }catch(e){
-            console.log(e)
-        }
+        // }catch(e){
+        //     console.log('THERE IS AN ERROR HERE')
+        //     console.log(e)
+        // }
         
     })
 }
