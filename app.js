@@ -44,7 +44,7 @@ var socketFunctions = require('./socket')
             console.log('user connected')
             socketFunctions.initSocketFunctions(socket)
         });
-        server.listen(5000); 
+        server.listen(3000); 
         console.log('listing to app')     
    // })
     
