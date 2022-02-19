@@ -53,7 +53,7 @@ var socketFunctions = require('./socket')
         //     global.io.emit("test");
         //     console.log("event test")
         // },1000)
-        server.listen(5000); 
+        server.listen(3000); 
         console.log('listing to app')     
    // })
     
