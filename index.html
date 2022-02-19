@@ -365,7 +365,6 @@ function ConnectToSocket(){
    
 const socket = io(serverUrl);
   socket.on('connect', function(){
-    alert("sdfsdfsdf")
         socket.emit('init','5e821c86d99be04a67062704')
   });
 
