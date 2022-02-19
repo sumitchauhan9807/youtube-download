@@ -1,3 +1,5 @@
+//var serverUrl = "http://18.222.190.213:3000/"
+var serverUrl = "http://localhost:5000/"
 function saveSearch(searchText){
     var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
     var time = new Date()
@@ -23,7 +25,7 @@ function saveSearch(searchText){
  function getSuggestions(currentText){
     return new Promise((resolve,reject)=>{
         $.ajax({
-            url:'http://18.222.190.213:3000/user/suggestions/'+currentText+'',
+            url:serverUrl+'user/suggestions/'+currentText+'',
             type:'GET',
             success:function(response){
                 resolve(response)

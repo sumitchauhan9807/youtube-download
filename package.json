@@ -12,18 +12,23 @@
   "dependencies": {
     "adm-zip": "^0.4.14",
     "body-parser": "^1.19.0",
+    "btoa": "^1.2.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "ffmetadata": "^1.6.0",
     "ffmpeg": "0.0.4",
     "file-zip": "^1.0.1",
     "googleapis": "^48.0.0",
     "handbrake-js": "^5.0.0",
     "mongoose": "^5.9.6",
+    "node-fetch": "^2.6.1",
     "request": "^2.88.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^1.0.0",
+    "spotify-web-api-node": "^4.0.0",
     "youtube-mp3-downloader": "^0.6.6",
     "youtube-search": "^1.1.4",
-    "ytdl-core": "^2.1.7",
-    "ytsr": "^0.1.14"
+    "ytdl-core": "^4.9.2",
+    "ytsr": "^2.0.0-alpha.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

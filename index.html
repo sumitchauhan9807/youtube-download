@@ -155,8 +155,8 @@
 <script>
 var artistsDataArray = [];
 var currentTasks = [];
-var serverUrl = "http://18.222.190.213:3000/"
-//var serverUrl = "http://localhost:5000/"
+//var serverUrl = "http://18.222.190.213:3000/"
+var serverUrl = "http://localhost:5000/"
 
 $(document).on("click",".zipMySongs",function(){
   $.ajax({
@@ -365,6 +365,7 @@ function ConnectToSocket(){
    
 const socket = io(serverUrl);
   socket.on('connect', function(){
+    alert("sdfsdfsdf")
         socket.emit('init','5e821c86d99be04a67062704')
   });
 

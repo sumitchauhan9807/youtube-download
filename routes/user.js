@@ -78,7 +78,7 @@ router.post('/music',(req,res,next)=>{
         _id:"5e821c86d99be04a67062704"
     }
     var videoId = req.body.videoId;
-    var artistId = req.body.artistId;
+    var artistId = null;
     console.log(videoId,artistId)
     musicController.downloadSong(userData,videoId,artistId)
     // .then((result)=>{

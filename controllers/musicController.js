@@ -8,6 +8,7 @@ var zip = require('file-zip');
 //var videoId = "zUwEIt9ez7M";
 var {google} = require('googleapis');
 const ytsr = require('ytsr');
+var ffmetadata = require("ffmetadata");
 //https://github.com/sumitchauhan9807/slack.git
 //git remote add origin git@github.com:sumitchauhan9807/youtube-download.git
 //git remote add origin https://github.com/sumitchauhan9807/youtube-download.git
@@ -18,23 +19,42 @@ exports.searchResults = (searchText,userData)=>{
     //ssh -i "sumit.pem" ec2-user@ec2-52-66-243-150.ap-south-1.compute.amazonaws.com
     return new Promise((resolve,reject)=>{
 
-        ytsr(searchText, {}, function(error,searchResults){
-            console.log(searchResults);
+        ytsr(searchText).then((searchResults)=>{
+            console.log(searchResults)
             searchResults.items.forEach((thisVideo)=>{
-                 var obj = {};
-                 if(thisVideo.type == 'video'){
-                     obj.videoId = thisVideo.link.split("?v=")[1];
-                     obj.title = thisVideo.title;
-                     obj.duration = thisVideo.duration;
-                     obj.url = thisVideo.thumbnail
-                     return_result_array.push(obj)
-                 }
-            })
-            return resolve({
-             results:return_result_array,
-             next:searchResults.nextpageRef
-            });
+            var obj = {};
+            if(thisVideo.type == 'video'){
+                obj.videoId = thisVideo.link.split("?v=")[1];
+                obj.title = thisVideo.title;
+                obj.duration = thisVideo.duration;
+                obj.url = thisVideo.thumbnail
+                return_result_array.push(obj)
+            }
+        })
+        return resolve({
+            results:return_result_array,
+            next:searchResults.nextpageRef
         });
+        }).catch((e)=>{
+            console.log(e)
+        })
+        // ytsr(searchText, {}, function(error,searchResults){
+        //     console.log(searchResults);
+        //     searchResults.items.forEach((thisVideo)=>{
+        //          var obj = {};
+        //          if(thisVideo.type == 'video'){
+        //              obj.videoId = thisVideo.link.split("?v=")[1];
+        //              obj.title = thisVideo.title;
+        //              obj.duration = thisVideo.duration;
+        //              obj.url = thisVideo.thumbnail
+        //              return_result_array.push(obj)
+        //          }
+        //     })
+        //     return resolve({
+        //      results:return_result_array,
+        //      next:searchResults.nextpageRef
+        //     });
+        // });
         // let filter;
         // ytsr.getFilters(searchText, function(err, filters) {
         //     if(err) throw err;
@@ -193,7 +213,7 @@ function getVideoData(videoId){
         })
     })
 }
-
+//ffmpeg -i input.mp3 -c copy -metadata artist="Someone" output.mp3
 exports.convertfile = (title) =>{
     console.log('called')
     return new Promise((resolve,reject)=>{
@@ -231,7 +251,18 @@ function convertToMp3(title){
         video.fnExtractSoundToMP3('./media/audio/'+title+'.mp3', function (error, file) {
             if (!error){
                 console.log('Audio file: ' + file);
-                resolve(file);
+                var data = {
+                    artist: "sumit chauhan",
+                  };
+                  var options = {
+                    attachments: ["./media/audio/test.jpg"],
+                  };
+                //   ffmetadata.write('./media/audio/'+title+'.mp3', data,options, function(err) {
+                //       if (err) console.error("Error writing metadata", err);
+                //       else resolve(file);
+                //   });
+                  resolve(file);
+                
             }
             if(error){
                 console.log('there was an error sumit')
@@ -292,48 +323,9 @@ exports.getUserSongs = (userid)=>{
             }
         })
     })
-         // var zippath = path.join(__dirname,"../","media/zip/Fade_To_Black.mp3")
-        // console.log(zippath)
+        
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-var YoutubeMp3Downloader = require("youtube-mp3-downloader");
-
-var YD = new YoutubeMp3Downloader({
-    "ffmpegPath": "./ffmpeg/bin/ffmpeg",        // Where is the FFmpeg binary located?
-    "outputPath": "./music",    // Where should the downloaded and encoded files be stored?
-    "youtubeVideoQuality": "highest",       // What video quality should be used?
-    "queueParallelism": 2,                  // How many parallel downloads/encodes should be started?
-    "progressTimeout": 2000                 // How long should be the interval of the progress reports
-});
-
-
-exports.downloadSongx = () =>{
-    YD.download("9bZkp7q19f0");
-    YD.on("finished", function(err, data) {
-        console.log(JSON.stringify(data));
-    });
-    YD.on("error", function(error) {
-        console.log(error,'error occured');
-    });
-     
-    YD.on("progress", function(progress) {
-        console.log(JSON.stringify(progress));
-    });
-    
-   return 'asdasd  downloading';     
-}
-
 
 function bytesToSize(bytes) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
