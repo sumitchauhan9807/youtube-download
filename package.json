@@ -23,7 +23,7 @@
     "mongoose": "^5.9.6",
     "node-fetch": "^2.6.1",
     "request": "^2.88.2",
-    "socket.io": "^1.0.0",
+    "socket.io": "^4.5.4",
     "spotify-web-api-node": "^4.0.0",
     "youtube-mp3-downloader": "^0.6.6",
     "youtube-search": "^1.1.4",
