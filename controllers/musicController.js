@@ -24,10 +24,12 @@ exports.searchResults = (searchText,userData)=>{
             searchResults.items.forEach((thisVideo)=>{
             var obj = {};
             if(thisVideo.type == 'video'){
-                obj.videoId = thisVideo.link.split("?v=")[1];
+                obj.videoId = thisVideo.url.split("?v=")[1];
                 obj.title = thisVideo.title;
                 obj.duration = thisVideo.duration;
-                obj.url = thisVideo.thumbnail
+                obj.bestThumbnail = thisVideo.bestThumbnail
+                obj.thumbnails = thisVideo.thumbnails
+                obj.author = thisVideo.author
                 return_result_array.push(obj)
             }
         })
@@ -141,8 +143,9 @@ function getVideoInfo(videoId){
     })
     
 }
-exports.downloadSong = (userData,videoId,artistId)=>{
-//     console.log(userData)
+exports.downloadSong = (userData,videoId,artistId,author,title,thumb)=>{
+    console.log(author,title,thumb)
+   
 //     return new Promise((resolve,reject)=>{
 //         getVideoInfo(videoId).then((fromats)=>{
 //             resolve(fromats)
@@ -155,23 +158,28 @@ exports.downloadSong = (userData,videoId,artistId)=>{
             return this.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "_");
          }
          console.log(videoData.title)
-        var title = videoData.title
+        var file_title = videoData.title
         //console.log(title);
-        title = title.cleanup();
-        //return res.send(title);
-        //title = title+'.mp4';
-        
+        file_title = file_title.cleanup();
+        // return res.send(title);
+        file_title = file_title+'.mp4';
+        var metaObject = {
+            author,
+            title,
+            thumb,
+            file_title
+          }
        // try{
             console.log(videoId,'VIDEO ID IS HERE')
             var url = 'http://www.youtube.com/watch?v='+videoId+''
           //  url = 'http://www.youtube.com/watch?v=A02s8omM_hI'
-            console.log(url);
+            console.log(url,"URL IS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             console.log(typeof url)
             var videoStream = ytdl(url);
             console.log(videoStream);
 
             videoStream.videoId = videoId;
-            videoStream.pipe(fs.createWriteStream('./media/video/'+title+'.mp4'))
+            videoStream.pipe(fs.createWriteStream('./media/video/'+file_title+'.mp4'))
             var dwnloadedBytes=0
             videoStream.on('data', (chunk) => {
                 dwnloadedBytes = dwnloadedBytes + chunk.length
@@ -183,12 +191,12 @@ exports.downloadSong = (userData,videoId,artistId)=>{
             });
             videoStream.on('end', () => {
                 console.log('There will be no more data.');
-                convertToMp3(title).then(()=>{
+                convertToMp3(metaObject).then(()=>{
                     global.io.to(userData._id).emit('Track_Downloaded',{
                       //  artist_id:artistId,
                        // trackData:newTrack,
                         videoId:videoId,
-                        url:title
+                        url:file_title
                     })
                     console.log('FILE DOWNLODED AND CONVERTED TO MP3 TOOOO') 
                 }).catch(()=>{
@@ -235,11 +243,11 @@ exports.convertfile = (title) =>{
     })
     
 }
-function convertToMp3(title){
+function convertToMp3(metaObject){
     console.log('converting to mp3') 
     return new Promise((resolve,reject)=>{
     try{
-        var process = new ffmpeg('./media/video/'+title+'.mp4');
+        var process = new ffmpeg('./media/video/'+metaObject.file_title+'.mp4');
         
     }catch(e){
         console.log(e)
@@ -248,20 +256,23 @@ function convertToMp3(title){
  
 // console.log('asdasdasdasdasdas-0098908908')
     process.then(function (video) {
-        video.fnExtractSoundToMP3('./media/audio/'+title+'.mp3', function (error, file) {
+        video.fnExtractSoundToMP3('./media/audio/'+metaObject.file_title+'.mp3', function (error, file) {
             if (!error){
                 console.log('Audio file: ' + file);
                 var data = {
-                    artist: "sumit chauhan",
+                    title: metaObject.title,
+                    artist: metaObject.author,
+                    lyrics:'sumit is awesome'
+
                   };
                   var options = {
-                    attachments: ["./media/audio/test.jpg"],
+                    attachments: [metaObject.thumb],
                   };
-                //   ffmetadata.write('./media/audio/'+title+'.mp3', data,options, function(err) {
-                //       if (err) console.error("Error writing metadata", err);
-                //       else resolve(file);
-                //   });
-                  resolve(file);
+                  ffmetadata.write('./media/audio/'+metaObject.file_title+'.mp3', data,options, function(err) {
+                      if (err) console.error("Error writing metadata", err);
+                      else resolve(file);
+                  });
+                //   resolve(file);
                 
             }
             if(error){

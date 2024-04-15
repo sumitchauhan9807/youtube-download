@@ -221,6 +221,11 @@ $(document).on('click','.artistListLink',function(){
 
 $(document).on('click','.downloadThisVideo',function(){
   var thisVideoId = $(this).attr('video_id');
+  var thisVideoAuthor = $(this).attr('author');
+  var thisVideoTitle = $(this).attr('title');
+  var thisVideoThumb = $(this).attr('thumb');
+
+
   var loader = $(this).parents('.card').find('.loader');
   currentTasks.push({
     videoId:thisVideoId,
@@ -228,7 +233,7 @@ $(document).on('click','.downloadThisVideo',function(){
   })
   console.log(loader)
   loader.removeClass('hide')
-  requestDownloadData(thisVideoId)
+  requestDownloadData(thisVideoId,thisVideoAuthor,thisVideoTitle,thisVideoThumb)
 })
 $(document).ready(function(){
 
@@ -261,13 +266,16 @@ function showArtistSongs(thisArtistId){
     })
     $('.thisArtSongsList').html(songsHTML)
 }
-function requestDownloadData(thisVideoId){
+function requestDownloadData(thisVideoId,thisVideoAuthor,thisVideoTitle,thisVideoThumb){
     return new Promise((resolve,reject)=>{
       $.ajax({
         url:'/user/music',
         type:'POST',
         data:{
           videoId:thisVideoId,
+          author:thisVideoAuthor,
+          title:thisVideoTitle,
+          thumb:thisVideoThumb,
           artistId:'5e7f750f9697151e48dc7be6'
         },
         success:function(response){
@@ -322,18 +330,20 @@ function populateSearchData(searchResults,action){
     }else{
       playBtnHtml +=`
       <div class="col-md-6">
-              <a video_id="${searchRes.videoId}" class="btn btn-default downloadThisVideo">dwnld</a>
+              <a thumb="${searchRes.bestThumbnail.url}" author="${searchRes.author.name}" title="${searchRes.title.slice(0,40)}" video_id="${searchRes.videoId}" class="btn btn-default downloadThisVideo">dwnld</a>
       </div>`
     }
     popHtml+= `
     <div class="col-md-3">
         <div class="card">
-          <div class="card-header">${searchRes.title.slice(0,40)}
+          <div class="card-header">
+            Title: ${searchRes.title.slice(0,40)} <br/>
+            Author: ${searchRes.author.name}
             <span style="display:block;font-size: 14px;color: brown;">Duration: ${searchRes.duration} minutes</span>
             </div>
           <div class="card-body">
             <center class="videoArea">
-              <img videoId="${searchRes.videoId}" class="videoThumb" src="${searchRes.url}">
+              <img videoId="${searchRes.videoId}" class="videoThumb" src="${searchRes.bestThumbnail.url}">
             </center>
             <div class="row">
               <div class="videoStatus">
@@ -365,7 +375,7 @@ function ConnectToSocket(){
    
 const socket = io(serverUrl);
   socket.on('connect', function(){
-    alert("sdfsdfsdf")
+    // alert("sdfsdfsdf")
         socket.emit('init','5e821c86d99be04a67062704')
   });
 

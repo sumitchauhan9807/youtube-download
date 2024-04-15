@@ -10,6 +10,7 @@
   "author": "sumit chauhan",
   "license": "ISC",
   "dependencies": {
+    "@distube/ytdl-core": "^4.11.7",
     "adm-zip": "^0.4.14",
     "body-parser": "^1.19.0",
     "btoa": "^1.2.1",
@@ -27,8 +28,8 @@
     "spotify-web-api-node": "^4.0.0",
     "youtube-mp3-downloader": "^0.6.6",
     "youtube-search": "^1.1.4",
-    "ytdl-core": "^4.9.2",
-    "ytsr": "^2.0.0-alpha.4"
+    "ytdl-core": "^4.11.5",
+    "ytsr": "^3.8.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
